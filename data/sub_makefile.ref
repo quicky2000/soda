@@ -2,10 +2,13 @@
 #<to_be_defined>_source_dir:=/home/quicky/Bureau/mon_infra/test_makefile/repository/<to_be_defined>
 <to_be_defined>_source_dir:=$(shell search_object.pl <to_be_defined>)
 
+<to_be_defined>_list_makefile:=
+
 # Relative directories
 <to_be_defined>_inc_dir:=$(<to_be_defined>_source_dir)/include
 <to_be_defined>_src_dir:=$(<to_be_defined>_source_dir)/src
 <to_be_defined>_obj_dir:=$(obj_dir)/<to_be_defined>
+<to_be_defined>_infra_dir:=$(infra_dir)/<to_be_defined>
 
 # List of files
 <to_be_defined>_src= $(wildcard $(<to_be_defined>_src_dir)/*.cpp)
@@ -13,8 +16,16 @@
 <to_be_defined>_obj=$(notdir  $(patsubst %.cpp, %.o,$(<to_be_defined>_src)))
 <to_be_defined>_depend:=$(<to_be_defined>_source_dir)/depend.txt
 <to_be_defined>_depend_list:= $(shell cat $(<to_be_defined>_depend))
+<to_be_defined>_dep_files:=$(addprefix $(<to_be_defined>_infra_dir)/,$(notdir  $(patsubst %.cpp, %.dep,$(<to_be_defined>_src))))
 
+
+<to_be_defined>_list_makefile+=$(addsuffix .mk, $(<to_be_defined>_depend_list))
 -include $(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
+
+ifeq ($(words $(<to_be_defined>_list_makefile)),$(words $(foreach a_makefile, $(<to_be_defined>_list_makefile),$(findstring $(a_makefile),$(sourced_makefile)))))
+sourced_makefile+=<to_be_defined>.mk
+-include $(<to_be_defined>_dep_files)
+endif
 <to_be_defined>_ext_inc_dir := $(<to_be_defined>_inc_dir) $(foreach var_name,$(<to_be_defined>_depend_list) ,$(value $(var_name)_ext_inc_dir))
 <to_be_defined>_eval_result := $(addprefix -I, $(<to_be_defined>_ext_inc_dir))
 
@@ -24,22 +35,24 @@ objects+=$(addprefix $(<to_be_defined>_obj_dir)/, $(<to_be_defined>_obj))
 components+=<to_be_defined>
 
 #Generic rule to compile cpp files of this object
-$(<to_be_defined>_obj_dir)/%.o : $(<to_be_defined>_src_dir)/%.cpp
+$(<to_be_defined>_obj_dir)/%.o : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defined>_obj_dir)
 	@echo " -> Compiling " $@
-	g++ -Wall -o $@ -c $< -I$(<to_be_defined>_inc_dir) $(<to_be_defined>_eval_result)
+	@g++ -Wall -o $@ -c $< -I$(<to_be_defined>_inc_dir) $(<to_be_defined>_eval_result)
 
-# Rule to compile dependancies 
-infra/<to_be_defined>.dep: $(<to_be_defined>_src) $(<to_be_defined>_headers) $(<to_be_defined>_depend)
-ifneq (,$(<to_be_defined>_src))
-	@ echo " -> Computing dependancies for component <to_be_defined>"
-	g++ -Wall -c $< $(<to_be_defined>_eval_result) -MM > $@
-endif
+#Rule to compile dependancies
+$(<to_be_defined>_infra_dir)/%.dep : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defined>_infra_dir)  $(<to_be_defined>_depend) #$(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
+	@ echo " -> Computing dependancies for component <to_be_defined> : file $(<to_be_defined>_src_dir)/$*.cpp"
+	@g++ -Wall -c $< $(<to_be_defined>_eval_result) -MM -o $@
+	@sed -e "s,$*\.o,obj/<to_be_defined>/$*.o $@,g" -i $@
 
-obj/<to_be_defined>: obj
-	@ echo " -> Preparing component <to_be_defined>"
-	@mkdir obj/<to_be_defined>
+$(<to_be_defined>_obj_dir): #obj
+	@ echo " -> Preparing obj component <to_be_defined>"
+	@mkdir -p $@
+
+$(<to_be_defined>_infra_dir): #infra
+	@ echo " -> Preparing infra component <to_be_defined>"
+	@mkdir -p $@
 
 # target for this object
-.PHONY : <to_be_defined>
-<to_be_defined> : $(<to_be_defined>_depend_list) infra/<to_be_defined>.dep $(addprefix $(<to_be_defined>_obj_dir)/, $(<to_be_defined>_obj))
-
+#.PHONY : <to_be_defined>
+#<to_be_defined> : $(<to_be_defined>_depend_list) infra/<to_be_defined>.dep $(addprefix $(<to_be_defined>_obj_dir)/, $(<to_be_defined>_obj))

@@ -1,21 +1,27 @@
-objects:= 
+objects= 
 components:=
+sourced_makefiles:=
+#completed_makefiles:=
 
 bin_dir:=bin
+infra_dir:=infra
 obj_dir:=obj
 
-.PHONY : all
-all: prepare <to_be_defined>
-	@echo "List objects : " $(objects)
-	g++ -o bin/<to_be_defined>.exe $(objects)
-
-infra/%.mk:infra
-	@echo Generating Makefile for object $*
-	@generate_makefile.sh $* $@
+.PHONY: all
+all : $(bin_dir)/main_object.exe
 
 ifneq (clean_all,$(MAKECMDGOALS))
--include infra/<to_be_defined>.mk
+-include $(infra_dir)/main_object.mk
 endif
+
+
+$(bin_dir)/main_object.exe: $(objects) $(bin_dir)
+	g++ -o $(bin_dir)/main_object.exe $(objects)
+
+infra/%.mk:
+	@mkdir -p infra
+	@echo " -> Generating Makefile for object $*"
+	@generate_makefile.sh $* $@
 
 bin:
 	mkdir bin
@@ -23,14 +29,7 @@ bin:
 obj:
 	mkdir obj
 
-infra:
-	mkdir infra
-
-
-.PHONY : prepare
-prepare: $(addprefix obj/, $(components)) bin
-
 .PHONY : clean_all
 clean_all:
-	\rm -rf bin infra obj
+	\rm -rf $(bin_dir) $(infra_dir) $(obj_dir)
 
