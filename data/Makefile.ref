@@ -1,0 +1,36 @@
+objects:= 
+components:=
+
+bin_dir:=bin
+obj_dir:=obj
+
+.PHONY : all
+all: prepare <to_be_defined>
+	@echo "List objects : " $(objects)
+	g++ -o bin/<to_be_defined>.exe $(objects)
+
+infra/%.mk:infra
+	@echo Generating Makefile for object $*
+	@generate_makefile.sh $* $@
+
+ifneq (clean_all,$(MAKECMDGOALS))
+-include infra/<to_be_defined>.mk
+endif
+
+bin:
+	mkdir bin
+
+obj:
+	mkdir obj
+
+infra:
+	mkdir infra
+
+
+.PHONY : prepare
+prepare: $(addprefix obj/, $(components)) bin
+
+.PHONY : clean_all
+clean_all:
+	\rm -rf bin infra obj
+
