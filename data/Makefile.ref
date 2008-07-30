@@ -8,15 +8,15 @@ infra_dir:=infra
 obj_dir:=obj
 
 .PHONY: all
-all : $(bin_dir)/main_object.exe
+all : $(bin_dir)/<to_be_defined>.exe
 
 ifneq (clean_all,$(MAKECMDGOALS))
--include $(infra_dir)/main_object.mk
+-include $(infra_dir)/<to_be_defined>.mk
 endif
 
 
-$(bin_dir)/main_object.exe: $(objects) $(bin_dir)
-	g++ -o $(bin_dir)/main_object.exe $(objects)
+$(bin_dir)/<to_be_defined>.exe: $(objects) $(bin_dir)
+	g++ -o $(bin_dir)/<to_be_defined>.exe $(objects)
 
 infra/%.mk:
 	@mkdir -p infra
