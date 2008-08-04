@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ -z $QUICKY_DP ]
+then 
+#echo "Environment variable QUICKY_DP is not set"
+result="dev"
+else
+result=`get_key $1 ${QUICKY_DP}`
+if [ "" == "$result" ]
+then
+result="dev"
+fi
+fi
+echo "$result"
+
+
+

@@ -14,8 +14,12 @@
 <to_be_defined>_src= $(wildcard $(<to_be_defined>_src_dir)/*.cpp)
 <to_be_defined>_headers= $(wildcard $(<to_be_defined>_source_dir)/src/*.h)
 <to_be_defined>_obj=$(notdir  $(patsubst %.cpp, %.o,$(<to_be_defined>_src)))
-<to_be_defined>_depend:=$(<to_be_defined>_source_dir)/depend.txt
-<to_be_defined>_depend_list:= $(shell cat $(<to_be_defined>_depend))
+<to_be_defined>_infra_infos:=$(<to_be_defined>_source_dir)/infra_infos.txt
+ifeq (,$(wildcard $(<to_be_defined>_infra_infos)))
+$(error "Object <to_be_defined> doesn't contain any infra_infos.txt file : $(<to_be_defined>_infra_infos)")
+endif
+
+<to_be_defined>_depend_list:= $(shell get_key depend $(<to_be_defined>_infra_infos))
 <to_be_defined>_dep_files:=$(addprefix $(<to_be_defined>_infra_dir)/,$(notdir  $(patsubst %.cpp, %.dep,$(<to_be_defined>_src))))
 
 
@@ -40,7 +44,7 @@ $(<to_be_defined>_obj_dir)/%.o : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defin
 	@g++ -Wall -o $@ -c $< -I$(<to_be_defined>_inc_dir) $(<to_be_defined>_eval_result)
 
 #Rule to compile dependancies
-$(<to_be_defined>_infra_dir)/%.dep : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defined>_infra_dir)  $(<to_be_defined>_depend) #$(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
+$(<to_be_defined>_infra_dir)/%.dep : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defined>_infra_dir)  $(<to_be_defined>_infra_infos) #$(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
 	@ echo " -> Computing dependancies for component <to_be_defined> : file $*.cpp"
 	@g++ -Wall -c $< $(<to_be_defined>_eval_result) -MM -o $@
 	@sed -e "s,$*\.o,obj/<to_be_defined>/$*.o $@,g" -i $@
