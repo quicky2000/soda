@@ -1,6 +1,6 @@
 # Object location in repository
 #<to_be_defined>_source_dir:=/home/quicky/Bureau/mon_infra/test_makefile/repository/<to_be_defined>
-<to_be_defined>_source_dir:=$(shell search_object.pl <to_be_defined>)
+<to_be_defined>_source_dir:=$(shell search_object <to_be_defined>)
 
 <to_be_defined>_list_makefile:=
 

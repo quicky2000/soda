@@ -21,7 +21,7 @@ $(bin_dir)/<to_be_defined>.exe: $(objects) $(bin_dir)
 infra/%.mk:
 	@mkdir -p infra
 	@echo " -> Generating Makefile for object $*"
-	@generate_makefile.sh $* $@
+	@generate_makefile $* $@
 
 bin:
 	mkdir bin
