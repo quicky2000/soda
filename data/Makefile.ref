@@ -1,11 +1,15 @@
 objects= 
 components:=
 sourced_makefiles:=
-#completed_makefiles:=
 
 bin_dir:=bin
 infra_dir:=infra
 obj_dir:=obj
+
+#---------
+#- FLAGS -
+#---------
+LDFLAGS=
 
 .PHONY: all
 all : $(bin_dir)/<to_be_defined>.exe
@@ -16,7 +20,7 @@ endif
 
 
 $(bin_dir)/<to_be_defined>.exe: $(objects) $(bin_dir)
-	g++ -o $(bin_dir)/<to_be_defined>.exe $(objects)
+	g++ -o $(bin_dir)/<to_be_defined>.exe $(objects) $(LDFLAGS)
 
 infra/%.mk:
 	@mkdir -p infra

@@ -19,9 +19,12 @@ ifeq (,$(wildcard $(<to_be_defined>_infra_infos)))
 $(error "Object <to_be_defined> doesn't contain any infra_infos.txt file : $(<to_be_defined>_infra_infos)")
 endif
 
+# Dependancies extraction
 <to_be_defined>_depend_list:= $(shell get_key depend $(<to_be_defined>_infra_infos))
 <to_be_defined>_dep_files:=$(addprefix $(<to_be_defined>_infra_dir)/,$(notdir  $(patsubst %.cpp, %.dep,$(<to_be_defined>_src))))
 
+# Flags extraction
+LDFLAGS+=$(shell get_key LDFLAGS $(<to_be_defined>_infra_infos))
 
 <to_be_defined>_list_makefile+=$(addsuffix .mk, $(<to_be_defined>_depend_list))
 -include $(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
