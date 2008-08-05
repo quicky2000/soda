@@ -27,11 +27,15 @@ endif
 LDFLAGS+=$(shell get_key LDFLAGS $(<to_be_defined>_infra_infos))
 
 <to_be_defined>_list_makefile+=$(addsuffix .mk, $(<to_be_defined>_depend_list))
+ifneq (,$(<to_be_defined>_depend_list))
 -include $(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
+endif
 
 ifeq ($(words $(<to_be_defined>_list_makefile)),$(words $(foreach a_makefile, $(<to_be_defined>_list_makefile),$(findstring $(a_makefile),$(sourced_makefile)))))
 sourced_makefile+=<to_be_defined>.mk
+ifneq (,$(<to_be_defined>_dep_files))
 -include $(<to_be_defined>_dep_files)
+endif
 endif
 <to_be_defined>_ext_inc_dir := $(<to_be_defined>_inc_dir) $(foreach var_name,$(<to_be_defined>_depend_list) ,$(value $(var_name)_ext_inc_dir))
 <to_be_defined>_eval_result := $(addprefix -I, $(<to_be_defined>_ext_inc_dir))
@@ -44,20 +48,21 @@ components+=<to_be_defined>
 #Generic rule to compile cpp files of this object
 $(<to_be_defined>_obj_dir)/%.o : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defined>_obj_dir)
 	@echo " -> Compiling " $@
-	@g++ -Wall -o $@ -c $< -I$(<to_be_defined>_inc_dir) $(<to_be_defined>_eval_result)
+	@g++ -Wall -o $@ -c $< $(CFLAGS) -I$(<to_be_defined>_inc_dir) $(<to_be_defined>_eval_result)
 
 #Rule to compile dependancies
-$(<to_be_defined>_infra_dir)/%.dep : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defined>_infra_dir)  $(<to_be_defined>_infra_infos) #$(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
-	@ echo " -> Computing dependancies for component <to_be_defined> : file $*.cpp"
+$(<to_be_defined>_infra_dir)/%.dep : $(<to_be_defined>_src_dir)/%.cpp  $(<to_be_defined>_infra_infos) #$(addsuffix .mk, $(addprefix infra/, $(<to_be_defined>_depend_list)))
+	@ echo " -> Computing  dependancies for component <to_be_defined> : file $*.cpp"
+	@ mkdir -p $(<to_be_defined>_infra_dir)
 	@g++ -Wall -c $< $(<to_be_defined>_eval_result) -MM -o $@
 	@sed -e "s,$*\.o,obj/<to_be_defined>/$*.o $@,g" -i $@
 
 $(<to_be_defined>_obj_dir): #obj
-	@ echo " -> Preparing obj component <to_be_defined>"
+	@ echo " -> Preparing  obj component <to_be_defined>"
 	@mkdir -p $@
 
 $(<to_be_defined>_infra_dir): #infra
-	@ echo " -> Preparing infra component <to_be_defined>"
+	@ echo " -> Preparing  infra component <to_be_defined>"
 	@mkdir -p $@
 
 # target for this object

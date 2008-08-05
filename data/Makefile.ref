@@ -10,9 +10,17 @@ obj_dir:=obj
 #- FLAGS -
 #---------
 LDFLAGS=
+CFLAGS=-g
+
+ifeq (library,$(MAKECMDGOALS))
+CFLAGS+= -fPIC
+endif
 
 .PHONY: all
 all : $(bin_dir)/<to_be_defined>.exe
+
+.PHONY: library
+library : $(bin_dir)/lib<to_be_defined>.so
 
 ifneq (clean_all,$(MAKECMDGOALS))
 -include $(infra_dir)/<to_be_defined>.mk
@@ -21,6 +29,9 @@ endif
 
 $(bin_dir)/<to_be_defined>.exe: $(objects) $(bin_dir)
 	g++ -o $(bin_dir)/<to_be_defined>.exe $(objects) $(LDFLAGS)
+
+$(bin_dir)/lib<to_be_defined>.so: $(objects) $(bin_dir)
+	g++ -o $(bin_dir)/lib<to_be_defined>.so $(objects) $(LDFLAGS) -shared
 
 infra/%.mk:
 	@mkdir -p infra
