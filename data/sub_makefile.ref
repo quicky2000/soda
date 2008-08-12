@@ -46,8 +46,9 @@ objects+=$(addprefix $(<to_be_defined>_obj_dir)/, $(<to_be_defined>_obj))
 components+=<to_be_defined>
 
 #Generic rule to compile cpp files of this object
-$(<to_be_defined>_obj_dir)/%.o : $(<to_be_defined>_src_dir)/%.cpp $(<to_be_defined>_obj_dir)
+$(<to_be_defined>_obj_dir)/%.o : $(<to_be_defined>_src_dir)/%.cpp 
 	@echo " -> Compiling " $@
+	@ mkdir -p $(<to_be_defined>_obj_dir)
 	@g++ -Wall -o $@ -c $< $(CFLAGS) -I$(<to_be_defined>_inc_dir) $(<to_be_defined>_eval_result)
 
 #Rule to compile dependancies
