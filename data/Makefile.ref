@@ -10,7 +10,7 @@ obj_dir:=obj
 #- FLAGS -
 #---------
 LDFLAGS=
-CFLAGS=-g
+CFLAGS=-Wall -g
 
 ifeq (library,$(MAKECMDGOALS))
 CFLAGS+= -fPIC
@@ -33,7 +33,7 @@ $(bin_dir)/<to_be_defined>.exe: $(objects) $(bin_dir)
 $(bin_dir)/lib<to_be_defined>.so: $(objects) $(bin_dir)
 	g++ -o $(bin_dir)/lib<to_be_defined>.so $(objects) $(LDFLAGS) -shared
 
-infra/%.mk:
+infra/%.mk:$(QUICKY_REPOSITORY)/quicky_tools/data/sub_makefile.ref
 	@mkdir -p infra
 	@echo " -> Generating Makefile for object $*"
 	@generate_makefile $* $@
