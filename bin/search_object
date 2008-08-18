@@ -18,7 +18,12 @@ if( $ENV{QUICKY_REPOSITORY} eq '')
   }
 #print "Repository is located in $ENV{QUICKY_REPOSITORY}\n";
 
-my @repository_paths = split(/:/,$ENV{QUICKY_REPOSITORY});
+my $path_separator = ":";
+if(! $ENV{QUICKY_OS} == "Linux")
+{
+	$path_separator = ";";
+}
+my @repository_paths = split(/$path_separator/,$ENV{QUICKY_REPOSITORY});
 my $repository_path = "";
 my $search_string = "";
 
