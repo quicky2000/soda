@@ -6,7 +6,7 @@ echo "Environment variable QUICKY_DP is not set" > /dev/stderr
 result="dev"
 else
 result=`get_key $1 ${QUICKY_DP}`
-if [ "" == "$result" ]
+if [ -z "$result" ]
 then
 result="dev"
 fi
