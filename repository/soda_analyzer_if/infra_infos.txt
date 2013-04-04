@@ -1,0 +1,4 @@
+depend:osm_api_data_types 
+CFLAGS:-Wall -g
+LDFLAGS:
+
