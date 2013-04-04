@@ -1,0 +1,7 @@
+#----------------------------------------------------------------------------
+# To obtain libexpat for MinGW :
+# _ Download windows installer : http://sourceforge.net/projects/expat/
+# _ Catch dll from C:\Program Files\Expat 2.1.0\Bin 
+# _ Catch headers from C:\Program Files\Expat 2.1.0\Source\lib
+#----------------------------------------------------------------------------
+#EOF
