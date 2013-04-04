@@ -1,0 +1,6 @@
+#----------------------------
+# To obtain sqlite3 on MinGW :
+# _ Download http://www.sqlite.org/sqlite-dll-win32-x86-3071401.zip to obtains dll
+# _ Download http://www.sqlite.org/sqlite-amalgamation-3071401.zip to obtains sqlite3.h
+#----------------------------
+# EOF
