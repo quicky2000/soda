@@ -1,0 +1,5 @@
+#----------------------------
+# To obtain libcurl for MinGW :
+# Download http://curl.haxx.se/gknw.net/7.27.0/dist-w32/curl-7.27.0-devel-mingw32.zip
+#----------------------------
+#EOF
