@@ -1,0 +1,4 @@
+depend:soda_analyzer_if
+CFLAGS:-Wall -g
+LDFLAGS:
+
