@@ -1,0 +1,4 @@
+depend:soda_analyzer_cpp_if EXT_sqlite3
+CFLAGS:-Wall -g -ansi -pedantic 
+LDFLAGS:
+
