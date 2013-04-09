@@ -1,0 +1,4 @@
+depend:soda_analyzer_sax_if simple_gui lib_bmp
+CFLAGS:-Wall -g -ansi -pedantic
+LDFLAGS:
+
