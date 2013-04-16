@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osmChange version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+  <modify>
+    <way id="4271104" visible="true" timestamp="2010-02-18T16:20:45Z" user="jcr83" uid="234940" version="4" changeset="3910170">
+      <nd ref="25664802"/>
+      <nd ref="25664801"/>
+      <nd ref="25664799"/>
+      <nd ref="25664798"/>
+      <nd ref="25664797"/>
+      <nd ref="25664795"/>
+      <nd ref="25664794"/>
+      <nd ref="25664793"/>
+      <nd ref="25664792"/>
+      <nd ref="25664791"/>
+      <nd ref="25664789"/>
+      <nd ref="25664788"/>
+      <nd ref="25664781"/>
+      <tag k="highway" v="secondary"/>
+      <tag k="name" v="Chemin de la Font des Fades"/>
+      <tag k="ref" v="D 103"/>
+    </way>
+  </modify>
+</osmChange>
