@@ -1,2 +1,85 @@
-Main repository for SODA project
+#-------------------------------------------------------------------------------
+                     SODA : Smart OSM Diff Aanalyzer
+#-------------------------------------------------------------------------------
 
+SODA is a C++ Framework to perform analyzer of OSM diff files in live or at 
+posteriori
+
+# INSTALLATION for Developpers
+#--------------------------------
+
+1) Linux
+
+You will need to install the following :
+	* library SDL 
+	* make
+	* g++
+	* library SQlite3
+	* library QT4
+	* library Expat
+	* library Curl
+
+For Ubuntu users the following command should install the required packages :
+sudo apt-get install libsdl1.2-dev make g++ libsqlite3-dev libqt4-dev libexpat1 libexpat1-dev libcurl4-openssl-dev 
+
+
+2) Windows
+
+If you simply want to use SODA a precompiled version of SODA is available here :
+http://thevenon.julien.free.fr/soda/download/soda_win32_binaries.tar.gz
+
+If you want to build soda you will need to install the following:
+	* Msys : http://www.mingw.org/wiki/MSYS
+	* MinGW : http://www.mingw.org/
+	* Qt4.7.4 at least : http://qt.digia.com
+IMPORTANT : please ensure that gdb version is at leat 4.1.1
+
+# BUILD
+#--------
+
+1) Linux
+
+To build all objects : soda Graphical Interface, soda command line, soda modules etc
+* Excute script build_Linux.sh
+
+If you want to rebuild a particular object
+* cd build/<object_name>
+* make ( for soda_batch or soda_QtUi ) make library ( for SODA modules)
+
+2) Windows
+
+To build soda_batch and soda modules
+* Launch msys command to obtain an Msys terminal
+* take place in directory containing README
+* Execute script build_MinGW.sh with the command : . MinGW_build.sh
+It should build everything needed for batch mode and launch an example
+
+If you want to rebuild a particular object
+* cd build/<object_name>
+* make ( for soda_batch or soda_QtUi ) make library ( for SODA modules)
+
+To build soda_QtUi the SODA Graphical Interface the previous step should have been done.
+*  Take place in Qt_build directory
+*  Open soda_QtUi.pro with QtCreator
+*  Click on finish in the dialog window
+*  Build the project
+
+# RUN EXAMPLES
+#--------------
+
+1) Linux
+
+Go inside examples directory.
+In each example directory there is 
+* a run_batch.sh script that allows to run the example in batch mode
+* a run_gui.sh that allows to run the example in GUI mode. Once the GUI launched
+  Open the provided configuration file and then click on Start button
+
+2) Windows
+
+Go inside examples directory.
+In each example directory there is 
+* a run_batch.bat script that allows to run the example in batch mode
+* a run_gui.bat that allows to run the example in GUI mode. Once the GUI launched
+  load the provided configuration file present in the directory using 
+  "File -> Load configuration file" menu and then click on Start button
