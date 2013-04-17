@@ -1,0 +1,5 @@
+depend:
+CFLAGS:-Wall -g
+LDFLAGS:-L. -lcurl -lzlib1 -lexpat -lsqlite3
+
+

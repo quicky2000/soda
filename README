@@ -49,19 +49,24 @@ If you want to rebuild a particular object
 2) Windows
 
 To build soda_batch and soda modules
+* Download http://thevenon.julien.free.fr/soda/download/MinGW_libs_2013_04.tar.gz
+* Take place in MinGW_material directory
+* Extract content of MinGW_libs_2013_04.tar.gz
 * Launch msys command to obtain an Msys terminal
 * take place in directory containing README
-* Execute script build_MinGW.sh with the command : . MinGW_build.sh
-It should build everything needed for batch mode and launch an example
+* Execute script build_MinGW.sh with the command : sh MinGW_build.sh
+It should build everything needed for batch mode
 
 If you want to rebuild a particular object
 * cd build/<object_name>
 * make ( for soda_batch or soda_QtUi ) make library ( for SODA modules)
 
 To build soda_QtUi the SODA Graphical Interface the previous step should have been done.
-*  Take place in Qt_build directory
+*  Take place in build/soda_QtUi directory
 *  Open soda_QtUi.pro with QtCreator
 *  Click on finish in the dialog window
+* On the bottom left select gcc Build in debug mode if you want to develop or 
+  in release mode if you plan to prepare a package or test examples
 *  Build the project
 
 # RUN EXAMPLES
@@ -76,6 +81,10 @@ In each example directory there is
   Open the provided configuration file and then click on Start button
 
 2) Windows
+
+In case you rebuild soda by yourself instead of downloading precompiled binaries you should :
+* Build soda_QtUi in Release mode
+* Run command : sh package_MinGW.sh
 
 Go inside examples directory.
 In each example directory there is 
