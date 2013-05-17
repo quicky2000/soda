@@ -92,3 +92,16 @@ In each example directory there is
 * a run_gui.bat that allows to run the example in GUI mode. Once the GUI launched
   load the provided configuration file present in the directory using 
   "File -> Load configuration file" menu and then click on Start button
+
+# Create new soda analyzers
+#----------------------------
+
+* Take place in template directory
+* Create a new empty module by using generate_analyzer.sh script
+  First parameter is the suffix use to determine the name of the module to be created : soda-analyzer_<suffix>
+  Second parameter is the type of module to generate : sax, dom or cpp
+  By example : generate_analyzer toto cpp
+* A new directory containing the code skeleton of the new module has been generated.
+  By example : soda_analyzer_toto
+* You can move it inside repository directory and adapt build scripts to make this module be built
+* Modify/complete the code of the module to perform the analyze you want 

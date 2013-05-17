@@ -1,0 +1,4 @@
+depend:soda_analyzer_sax_if
+CFLAGS:-Wall -g -ansi -pedantic
+LDFLAGS:
+
