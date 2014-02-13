@@ -134,7 +134,7 @@ namespace osm_diff_analyzer_key_survey
     {
 
 #ifndef FORCE_USE_OF_REINTERPRET_CAST
-      const T * const l_casted_object = dynamic_cast<const T * const>(p_object);
+      const T * const l_casted_object = dynamic_cast<const T * const>(p_object) != NULL ? dynamic_cast<const T * const>(p_object) : reinterpret_cast<const T * const>(p_object);
 #else
       const T * const l_casted_object = reinterpret_cast<const T * const>(p_object);
 #endif // FORCE_USE_OF_REINTERPRET_CAST
@@ -143,7 +143,7 @@ namespace osm_diff_analyzer_key_survey
      if(l_casted_object==NULL)
         {
           std::stringstream l_stream;
-          l_stream << "ERROR : invalid " << T::get_type_str() << " cast for object id " << p_object->get_id();
+          l_stream << "Invalid " << T::get_type_str() << " cast for object id " << p_object->get_id();
           throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
         }
 
@@ -211,14 +211,14 @@ namespace osm_diff_analyzer_key_survey
                 
                 l_change_description = (p_change == osm_api_data_types::osm_change::MODIFICATION ? "Modification" : "Deletion");
                 osm_api_data_types::osm_core_element::t_osm_version l_previous_version = l_casted_object->get_version() - 1;
-                l_diff = compare(l_previous_version,*l_casted_object,l_report_detail,l_casted_object->get_user(),l_casted_object->get_user_id());
+                l_diff = (l_previous_version ? compare(l_previous_version,*l_casted_object,l_report_detail,l_casted_object->get_user(),l_casted_object->get_user_id()) : true);
               }
               break;
             case osm_api_data_types::osm_change::INTERNAL_INVALID:
             default:
               {
                 std::stringstream l_stream;
-                l_stream << "ERROR : unexpected osm change value value \"" << p_change << "\"" ;
+                l_stream << "Unexpected osm change value : \"" << p_change << "\"" ;
                 throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
               }
               break;
